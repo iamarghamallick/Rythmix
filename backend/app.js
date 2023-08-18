@@ -9,10 +9,10 @@ app.use(cors());
 const MONGO_URI = "mongodb+srv://argha:argha@cluster0.6g2lwo5.mongodb.net/?retryWrites=true&w=majority"
 
 app.get("/", (req, res) => {
-    return res.json("Hello...")
+    return res.json("Welcome to songdb")
 })
 
-// add song
+// api route
 const userRoute = require("./routes/route");
 app.use("/api/", userRoute);
 

@@ -12,6 +12,10 @@ const SongSchema = mongoose.Schema({
     audioUrl: {
         type: String,
         required: true,
+    },
+    likeCount: {
+        type: Number,
+        required: false
     }
 },
     { timestamps: true }
