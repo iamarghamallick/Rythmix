@@ -61,9 +61,9 @@ const getLocalStoragedata = () => {
 let tracks = getLocalStoragedata();
 let cardContainer = document.getElementById("card-container");
 let addSongBtn = document.getElementById("addSongBtn");
-let title = document.getElementById("title");
-let artist = document.getElementById("artist");
-let url = document.getElementById("url");
+// let title = document.getElementById("title");
+// let artist = document.getElementById("artist");
+// let url = document.getElementById("url");
 let likeCount = document.getElementById("likeCount");
 
 function updateTracks() {
@@ -95,24 +95,24 @@ updateTracks();
 
 addSongBtn.addEventListener('click', async (e) => {
     e.preventDefault();
-    let newSong = {
-        songId: Date.now(),
-        title: title.value,
-        artist: artist.value,
-        songUrl: url.value,
-        likeCount: 0
-    }
-    tracks.push(newSong)
-    localStorage.setItem("tracks", JSON.stringify(tracks))
-    updateTracks();
-    console.log(newSong);
-    title.value = "";
-    artist.value = "";
-    url.value = "";
+    // let newSong = {
+    //     songId: Date.now(),
+    //     title: title.value,
+    //     artist: artist.value,
+    //     songUrl: url.value,
+    //     likeCount: 0
+    // }
+    // tracks.push(newSong)
+    // localStorage.setItem("tracks", JSON.stringify(tracks))
+    // updateTracks();
+    // console.log(newSong);
+    // title.value = "";
+    // artist.value = "";
+    // url.value = "";
 
-    // const title = document.getElementById('title').value;
-    // const artist = document.getElementById('artist').value;
-    // const audioUrl = document.getElementById('url').value;
+    const title = document.getElementById('title').value;
+    const artist = document.getElementById('artist').value;
+    const audioUrl = document.getElementById('url').value;
 
     const data = { title, artist, audioUrl };
 
@@ -131,6 +131,38 @@ addSongBtn.addEventListener('click', async (e) => {
         console.error('Error inserting data:', error);
     }
 });
+
+async function getSongs() {
+    try {
+        const response = await fetch('http://localhost:8080/api/getsong');
+        const data = await response.json();
+        console.log(data);
+        let html = ``;
+        data.map((data, index) => {
+            html += `
+        <div class="card" style="width: 19rem;" id="${data._id}">
+                <img src="https://picsum.photos/500/200?random=${123}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">${data.title}</h5>
+                    <p class="card-text">${data.artist}</p>
+                    <audio controls>
+                        <source src="${data.audioUrl}">
+                    </audio>
+                    <div class="button-group" role="group" aria-label="Basic example">
+                        <button type="button" class="" onclick="handleLike(${data._id})"><i class="fa-regular fa-heart"></i><span id="likeCount"></span>
+                            ${data.likeCount}</span></button>
+                        <button type="button" class=""><i class="fa-solid fa-music"></i></button>
+                    </div>
+                </div>
+            </div>
+    `
+        })
+        html === "" ? cardContainer.innerHTML = "No songs to display!" : cardContainer.innerHTML = html
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+}
+getSongs();
 
 function handleLike(songId) {
     console.log(songId)

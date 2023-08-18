@@ -10,6 +10,15 @@ router.post("/addsong", async (req, res) => {
     }
 })
 
+router.get('/getsong', async (req, res) => {
+    try {
+        const data = await song.find({}); // Retrieve all documents
+        res.status(200).json(data);
+    } catch (error) {
+        res.status(500).json({ error: 'Error retrieving data' });
+    }
+});
+
 const newSongData = async (req, res) => {
     const newSong = new song({
         title: req.body.title,
