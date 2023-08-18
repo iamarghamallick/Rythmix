@@ -1,0 +1,50 @@
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+}
+
+.card {
+    background-color: #d3d3ff;
+}
+
+.button-group {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem;
+}
+
+.button-group button {
+    background: none;
+    outline: none;
+    border: none;
+    font-size: 1.5rem;
+    color: rgb(91, 91, 172);
+    border-radius: 10px;
+    padding: 0 10px;
+}
+
+.button-group button:hover {
+    background-color: #b8b8ff;
+}
+
+form div input {
+    background-color: #d3d3ff !important;
+    outline: none;
+}
+
+form div input:focus {
+    outline: none;
+    border: none;
+}
+
+footer {
+    background: #1A1E25;
+    color: #a3aab4;
+}
+
+footer p {
+    padding: 40px 0;
+    text-align: center;
+}
