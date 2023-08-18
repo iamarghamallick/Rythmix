@@ -1,5 +1,8 @@
 // AUDUO FILES SOURCE https://simpleguics2pygame.readthedocs.io/en/latest/_static/links/snd_links.html
 
+const HOST_URL = "http://localhost:8080";
+
+let loader = document.getElementById('loader');
 let cardContainer = document.getElementById("card-container");
 let addSongBtn = document.getElementById("addSongBtn");
 let likeCount = document.getElementById("likeCount");
@@ -7,6 +10,7 @@ let likeCount = document.getElementById("likeCount");
 let SONG_DATA = {}
 
 addSongBtn.addEventListener('click', async (e) => {
+    loader.style.visibility = "visible";
     e.preventDefault();
 
     const title = document.getElementById('title').value;
@@ -16,7 +20,7 @@ addSongBtn.addEventListener('click', async (e) => {
     const data = { title, artist, audioUrl };
 
     try {
-        const response = await fetch('http://localhost:8080/api/addsong', {
+        const response = await fetch(`${HOST_URL}/api/addsong`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -30,11 +34,13 @@ addSongBtn.addEventListener('click', async (e) => {
         console.error('Error inserting data:', error);
     }
     getSongs();
+    loader.style.visibility = "hidden";
 });
 
 async function getSongs() {
+    loader.style.visibility = "visible";
     try {
-        const response = await fetch('http://localhost:8080/api/getsong');
+        const response = await fetch(`${HOST_URL}/api/getsong`);
         const data = await response.json();
         console.log(data);
         SONG_DATA = data;
@@ -63,6 +69,7 @@ async function getSongs() {
     } catch (error) {
         console.error('Error fetching data:', error);
     }
+    loader.style.visibility = "hidden";
 }
 getSongs();
 
@@ -78,7 +85,7 @@ async function handleLike(index) {
     const data = { title, artist, audioUrl, likeCount };
 
     try {
-        const response = await fetch(`http://localhost:8080/api/updatesong/${id}`, {
+        const response = await fetch(`${HOST_URL}/api/updatesong/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
