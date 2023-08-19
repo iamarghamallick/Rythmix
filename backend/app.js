@@ -9,7 +9,7 @@ app.use(cors());
 const MONGO_URI = "mongodb+srv://argha:argha@cluster0.6g2lwo5.mongodb.net/?retryWrites=true&w=majority"
 
 app.get("/", (req, res) => {
-    return res.json("Welcome to songdb")
+    return res.json({ "status": "running", "message": "welcome to songdb" })
 })
 
 // api route
@@ -18,9 +18,9 @@ app.use("/api/", userRoute);
 
 mongoose.connect(MONGO_URI, { useNewUrlParser: true });
 mongoose.connection
-    .once("open", () => console.log("Connected"))
+    .once("open", () => console.log("Connected to mongodb database"))
     .on("error", (error) => {
         console.log(`ERROR : ${error}`)
     })
 
-app.listen(8080, () => console.log("Listening on port 8080"));
+app.listen(8080, () => console.log("Server started at http://localhost:8080"));

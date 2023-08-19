@@ -1,21 +1,20 @@
-// AUDUO FILES SOURCE https://simpleguics2pygame.readthedocs.io/en/latest/_static/links/snd_links.html
-
 const HOST_URL = "http://localhost:8080";
 
-let loader = document.getElementById('loader');
 let cardContainer = document.getElementById("card-container");
 let addSongBtn = document.getElementById("addSongBtn");
 let likeCount = document.getElementById("likeCount");
+let songAddedConfirmed = document.getElementById('song-added-confirmed');
+let onLoad = document.getElementById('on-load');
+let addSongForm = document.getElementById('add-song-form');
 
 let SONG_DATA = {}
 
 addSongBtn.addEventListener('click', async (e) => {
-    loader.style.visibility = "visible";
     e.preventDefault();
 
-    const title = document.getElementById('title').value;
-    const artist = document.getElementById('artist').value;
-    const audioUrl = document.getElementById('url').value;
+    let title = document.getElementById('title').value;
+    let artist = document.getElementById('artist').value;
+    let audioUrl = document.getElementById('url').value;
 
     const data = { title, artist, audioUrl };
 
@@ -30,15 +29,20 @@ addSongBtn.addEventListener('click', async (e) => {
 
         const result = await response.json();
         console.log(result);
+
+        // show noti
+        songAddedConfirmed.innerHTML = "Added Successfully!"
+        setTimeout(() => {
+            songAddedConfirmed.innerHTML = "";
+        }, 5000);
     } catch (error) {
         console.error('Error inserting data:', error);
     }
+    addSongForm.reset();
     getSongs();
-    loader.style.visibility = "hidden";
 });
 
 async function getSongs() {
-    loader.style.visibility = "visible";
     try {
         const response = await fetch(`${HOST_URL}/api/getsong`);
         const data = await response.json();
@@ -49,7 +53,7 @@ async function getSongs() {
         data.map((data, index) => {
             html += `
             <div class="card" style="width: 19rem;" id="${data._id}">
-                <img src="https://picsum.photos/500/200?random=${random(data._id)}" class="card-img-top" alt="...">
+                <img src="https://picsum.photos/500/200?random=${random(data._id)}" class="card-img-top" alt="cover-img">
                 <div class="card-body">
                     <h5 class="card-title">${data.title}</h5>
                     <p class="card-text">${data.artist}</p>
@@ -57,24 +61,25 @@ async function getSongs() {
                         <source src="${data.audioUrl}">
                     </audio>
                     <div class="button-group" role="group" aria-label="Basic example">
-                        <button type="button" onclick="handleLike(${index})"><i class="fa-regular fa-heart"></i><span id="likeCount"></span>
-                            ${data.likeCount}</span></button>
+                        <button type="button" onclick="handleLike(${index})">
+                            <i class="fa-regular fa-heart"></i><span id="${index}"> ${data.likeCount}</span>
+                        </button>
                         <button type="button" class=""><i class="fa-solid fa-music"></i></button>
                     </div>
                 </div>
             </div>
-    `
+            `
         })
         html === "" ? cardContainer.innerHTML = "No songs to display!" : cardContainer.innerHTML = html
     } catch (error) {
         console.error('Error fetching data:', error);
     }
-    loader.style.visibility = "hidden";
+    onLoad.style.display = "none";
 }
 getSongs();
 
 async function handleLike(index) {
-    console.log(SONG_DATA[index])
+    console.log(SONG_DATA[index]);
 
     const id = SONG_DATA[index]._id;
     const title = SONG_DATA[index].title;
@@ -95,11 +100,14 @@ async function handleLike(index) {
 
         const result = await response.json();
         console.log(result);
+
+        // update in the ui
+        document.getElementById(index).innerHTML = " " + (Number(document.getElementById(index).innerHTML) + 1);
     } catch (error) {
         console.error('Error updating data:', error);
     }
 
-    getSongs()
+    // getSongs()
 }
 
 function random(id) {

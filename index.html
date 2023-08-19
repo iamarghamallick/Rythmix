@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Rythmix</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -34,39 +35,40 @@
                 </ul>
                 <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <button class="btn btn-outline-primary" type="submit">Search</button>
                 </form>
             </div>
         </div>
     </nav>
 
-    <form class="container">
+    <form class="container" id="add-song-form">
         <div class="d-flex gap-4" style="width: 100%;">
             <div class="mb-3" style="width: 50%;">
                 <label for="title" class="form-label">Song Title</label>
-                <input type="text" class="form-control" placeholder="Enter Song Title" id="title" name="title">
+                <input type="text" class="form-control" placeholder="Enter Song Title" id="title" name="title" required>
             </div>
             <div class="mb-3" style="width: 50%;">
                 <label for="artist" class="form-label">Song Artist</label>
-                <input type="text" class="form-control" placeholder="Enter name of the Artist" id="artist"
-                    name="artist">
+                <input type="text" class="form-control" placeholder="Enter name of the Artist" id="artist" name="artist"
+                    required>
             </div>
         </div>
         <div class="mb-3">
             <label for="url" class="form-label">Audio Url</label>
-            <input type="text" class="form-control" placeholder="Paste audio URL" id="url" name="url">
+            <input type="text" class="form-control" placeholder="Paste audio URL" id="url" name="url" required>
         </div>
-        <button type="submit" class="btn btn-primary" id="addSongBtn">Add Song</button>
+        <button type="submit" class="btn btn-primary" id="addSongBtn">Add Song</button><span class="mx-4"
+            id="song-added-confirmed"></span>
     </form>
 
     <section class="container" style="margin-top: 2rem; margin-bottom: 2rem;">
         <div class="d-flex gap-4 align-items-center justify-content-between">
             <h2>Collaborative Playlist</h2>
-            <div class="loader" id="loader"></div>
+            <!-- <div class="loader" id="loader"></div> -->
         </div>
         <div class="card-container" id="card-container">
             <!-- below card is going to be repeated -->
-            <div class="card" style="width: 19rem;">
+            <!-- <div class="card" style="width: 19rem;">
                 <img src="https://picsum.photos/500/200" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">Song Title</h5>
@@ -80,12 +82,20 @@
                         <button type="button" class=""><i class="fa-solid fa-music"></i></button>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
+        <button class="on-load" id="on-load" type="button" disabled="">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 100 101"
+                class="inline w-4 h-4 mr-3 text-white animate-bounce" role="status" aria-hidden="true">
+                <circle fill="#34D399" r="45" cy="50" cx="50"></circle>
+            </svg>
+            Loading...
+        </button>
     </section>
     <footer>
         <p>Copyright &copy; 2023 | All Rights Reserved.</p>
     </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
         crossorigin="anonymous"></script>
