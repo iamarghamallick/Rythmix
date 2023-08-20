@@ -1,4 +1,4 @@
-const HOST_URL = "https://rythmix-backend.onrender.com";
+const HOST_URL = "http://localhost:8080";
 
 let cardContainer = document.getElementById("card-container");
 let addSongBtn = document.getElementById("addSongBtn");
@@ -12,23 +12,15 @@ let SONG_DATA = {}
 addSongBtn.addEventListener('click', async (e) => {
     e.preventDefault();
 
-    let title = document.getElementById('title').value;
-    let artist = document.getElementById('artist').value;
-    let audioUrl = document.getElementById('url').value;
-
-    const data = { title, artist, audioUrl };
-
+    const data = new FormData(addSongForm);
     try {
         const response = await fetch(`${HOST_URL}/api/addsong`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
+            body: data
         });
 
         const result = await response.json();
-        console.log(result);
+        // console.log(result);
 
         // show noti
         songAddedConfirmed.innerHTML = "Added Successfully!"
@@ -46,9 +38,9 @@ async function getSongs() {
     try {
         const response = await fetch(`${HOST_URL}/api/getsong`);
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         SONG_DATA = data;
-        console.log(SONG_DATA);
+        // console.log(SONG_DATA);
         let html = ``;
         data.map((data, index) => {
             html += `
@@ -58,7 +50,7 @@ async function getSongs() {
                     <h5 class="card-title">${data.title}</h5>
                     <p class="card-text">${data.artist}</p>
                     <audio controls>
-                        <source src="${data.audioUrl}">
+                        <source src="${HOST_URL + "/api/uploads/" + data.filePath}">
                     </audio>
                     <div class="button-group" role="group" aria-label="Basic example">
                         <button type="button" onclick="handleLike(${index})">
@@ -79,7 +71,7 @@ async function getSongs() {
 getSongs();
 
 async function handleLike(index) {
-    console.log(SONG_DATA[index]);
+    // console.log(SONG_DATA[index]);
 
     const id = SONG_DATA[index]._id;
     const title = SONG_DATA[index].title;
@@ -99,7 +91,7 @@ async function handleLike(index) {
         });
 
         const result = await response.json();
-        console.log(result);
+        // console.log(result);
 
         // update in the ui
         document.getElementById(index).innerHTML = " " + (Number(document.getElementById(index).innerHTML) + 1);

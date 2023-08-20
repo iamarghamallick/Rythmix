@@ -41,7 +41,7 @@
         </div>
     </nav>
 
-    <form class="container" id="add-song-form">
+    <form class="container" id="add-song-form" enctype="multipart/form-data">
         <div class="d-flex gap-4" style="width: 100%;">
             <div class="mb-3" style="width: 50%;">
                 <label for="title" class="form-label">Song Title</label>
@@ -54,8 +54,8 @@
             </div>
         </div>
         <div class="mb-3">
-            <label for="url" class="form-label">Audio Url</label>
-            <input type="text" class="form-control" placeholder="Paste audio URL" id="url" name="url" required>
+            <label for="url" class="form-label">Upload Audio</label>
+            <input class="form-control" type="file" name="song" id="song" />
         </div>
         <button type="submit" class="btn btn-primary" id="addSongBtn">Add Song</button><span class="mx-4"
             id="song-added-confirmed"></span>

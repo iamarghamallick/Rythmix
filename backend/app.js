@@ -1,12 +1,15 @@
 const express = require('express');
+const { default: mongoose } = require('mongoose');
+
 const app = express();
 app.use(express.json());
-const { default: mongoose } = require('mongoose');
 
 const cors = require('cors');
 app.use(cors());
 
-const MONGO_URI = "mongodb+srv://argha:argha@cluster0.6g2lwo5.mongodb.net/?retryWrites=true&w=majority"
+const MONGO_URI = "mongodb+srv://argha:argha@cluster0.6g2lwo5.mongodb.net/?retryWrites=true&w=majority";
+
+app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
     return res.json({ "status": "running", "message": "welcome to songdb" })

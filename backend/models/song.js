@@ -9,7 +9,7 @@ const SongSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    audioUrl: {
+    filePath: {
         type: String,
         required: true,
     },
