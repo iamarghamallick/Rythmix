@@ -7,6 +7,15 @@
 
 .card {
     background-color: #d3d3ff;
+    width: 320px !important;
+}
+
+.card-body {
+    padding: 10px !important;
+}
+
+audio {
+    width: 300px;
 }
 
 .button-group {
@@ -46,8 +55,9 @@ footer {
 }
 
 footer p {
-    padding: 40px 0;
     text-align: center;
+    margin-bottom: 0;
+    padding: 20px 0;
 }
 
 .loader {
@@ -127,5 +137,34 @@ footer p {
 
     50% {
         transform: translateY(5px);
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .card-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media only screen and (max-width: 425px) {
+    .name-artist {
+        flex-direction: column;
+        gap: 3px !important;
+    }
+
+    .name-artist div {
+        width: 100% !important;
+    }
+
+    form,
+    .card-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .card-container {
+        grid-template-columns: repeat(1, 1fr);
     }
 }
