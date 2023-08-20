@@ -1,4 +1,4 @@
-const HOST_URL = "http://localhost:8080";
+const HOST_URL = "https://rythmix-backend.onrender.com";
 
 let cardContainer = document.getElementById("card-container");
 let addSongBtn = document.getElementById("addSongBtn");
