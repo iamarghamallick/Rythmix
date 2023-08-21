@@ -40,6 +40,7 @@ router.post("/addsong", upload.single('song'), async (req, res) => {
         console.log("New Song Added!");
         res.status(200).send({ song: savedSong });
     } catch (error) {
+        console.log(error);
         res.status(500).send({ message: error })
     }
 })

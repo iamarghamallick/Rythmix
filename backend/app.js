@@ -1,8 +1,10 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const { default: mongoose } = require('mongoose');
 
 const app = express();
 app.use(express.json());
+app.use(bodyParser.json());
 
 const cors = require('cors');
 app.use(cors());
