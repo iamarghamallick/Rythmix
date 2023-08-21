@@ -1,3 +1,7 @@
+.container {
+    margin-top: 4rem;
+}
+
 .card-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -94,6 +98,11 @@ footer p {
     }
 }
 
+.submit-btn-holder {
+    display: flex;
+    align-items: center;
+}
+
 .on-load {
     color: white;
     background-color: #0d6efd;
@@ -128,6 +137,33 @@ footer p {
     animation: bounce 1s infinite;
 }
 
+.simple-spinner {
+    display: inline-block;
+    visibility: hidden;
+    width: 30px;
+    height: 30px;
+}
+
+.simple-spinner span {
+    display: block;
+    width: 30px;
+    height: 30px;
+    border: 3px solid transparent;
+    border-radius: 50%;
+    border-right-color: rgba(255, 255, 255, 0.7);
+    animation: spinner-anim 0.8s linear infinite;
+}
+
+@keyframes spinner-anim {
+    from {
+        transform: rotate(0);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 @keyframes bounce {
 
     0%,
@@ -156,7 +192,7 @@ footer p {
         width: 100% !important;
     }
 
-    form,
+    .container,
     .card-container {
         display: flex;
         flex-direction: column;
@@ -166,5 +202,10 @@ footer p {
 
     .card-container {
         grid-template-columns: repeat(1, 1fr);
+    }
+
+    .submit-btn-holder {
+        width: 100%;
+        justify-content: space-between;
     }
 }

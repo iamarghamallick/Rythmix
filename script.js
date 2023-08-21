@@ -1,9 +1,10 @@
-const HOST_URL = "https://rythmix-backend.onrender.com";
+const HOST_URL = "http://localhost:8080";
 
 let cardContainer = document.getElementById("card-container");
 let addSongBtn = document.getElementById("addSongBtn");
 let likeCount = document.getElementById("likeCount");
 let songAddedConfirmed = document.getElementById('song-added-confirmed');
+let songAdding = document.getElementById('song-adding');
 let onLoad = document.getElementById('on-load');
 let addSongForm = document.getElementById('add-song-form');
 
@@ -11,6 +12,7 @@ let SONG_DATA = {}
 
 addSongBtn.addEventListener('click', async (e) => {
     e.preventDefault();
+    songAddedConfirmed.style.visibility = "visible";
 
     const data = new FormData(addSongForm);
     try {
@@ -22,10 +24,9 @@ addSongBtn.addEventListener('click', async (e) => {
         const result = await response.json();
         // console.log(result);
 
-        // show noti
-        songAddedConfirmed.innerHTML = "Added Successfully!"
+        // stop loading
         setTimeout(() => {
-            songAddedConfirmed.innerHTML = "";
+            songAddedConfirmed.style.visibility = "hidden";
         }, 5000);
     } catch (error) {
         console.error('Error inserting data:', error);
